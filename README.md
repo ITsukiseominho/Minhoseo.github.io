@@ -1,2 +1,0 @@
-# Minhoseo.github.io
-.
