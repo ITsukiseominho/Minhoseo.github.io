@@ -1,0 +1,344 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>서민호 / Minho Seo</title>
+  <meta name="description" content="Personal academic homepage template">
+  <style>
+    :root {
+      --primary: #10b981; 
+      --primary-hover: #059669;
+      --bg-navy: #0f172a;
+      --bg-body: #f8fafc;
+      --bg-card: #ffffff;
+      --text-main: #1f2937;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --max-width: 1100px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", "Helvetica Neue", Arial;
+      line-height: 1.6; color: var(--text-main); margin: 0; padding: 0; background: var(--bg-body);
+    }
+    .top-nav {
+      background: var(--bg-card); display: flex; justify-content: center; align-items: center;
+      padding: 16px 32px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 100;
+    }
+    .nav-links { display: flex; gap: 32px; flex-wrap: wrap; }
+    .nav-links a { color: var(--text-muted); text-decoration: none; font-weight: 600; font-size: 14px; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--primary); }
+    .lang-switch { position: absolute; right: 32px; display: flex; gap: 12px; align-items: center; }
+    .lang-switch a { color: var(--text-muted); text-decoration: none; font-size: 13px; font-weight: 700; transition: all 0.2s; }
+    .lang-switch a.active { color: var(--primary); }
+    .lang-switch a:hover:not(.active) { color: var(--text-main); }
+    .lang-divider { color: var(--border); font-size: 12px; }
+    .hero { background-color: var(--bg-navy); padding: 60px 20px 140px; display: flex; flex-direction: column; align-items: center; text-align: center; }
+    .hero .avatar { width: 140px; height: 150px; border-radius: 20px; object-fit: cover; margin-bottom: 24px; box-shadow: 0 0 0 4px rgba(255,255,255,0.1); }
+    .hero h1 { margin: 0 0 12px 0; font-size: 36px; color: #ffffff; font-weight: 800; letter-spacing: -0.5px; }
+    .hero h1 .small { display: none; } 
+    .hero .sub { color: var(--primary); font-size: 16px; font-weight: 500; line-height: 1.6; }
+    .hero .small { color: #cbd5e1; font-size: 14px; margin-top: 16px; }
+    .hero .small a { color: #cbd5e1; text-decoration: underline; }
+    .hero .contact-quick { display: none; } 
+    .wrap { max-width: var(--max-width); margin: -80px auto 40px; padding: 0 20px; position: relative; z-index: 10; }
+    .grid { display: grid; grid-template-columns: 1fr 340px; gap: 24px; align-items: start; }
+    .card-main { background: var(--bg-card); border-radius: 16px; padding: 40px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03); }
+    .card-aside { display: flex; flex-direction: column; gap: 24px; }
+    .card-aside section { background: var(--bg-card); border-radius: 16px; padding: 32px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03); margin-bottom: 0; }
+    main section { margin-bottom: 48px; }
+    main section:last-child { margin-bottom: 0; }
+    .section-title { font-size: 22px; font-weight: 800; color: #111827; margin-bottom: 24px; display: flex; align-items: center; gap: 12px; }
+    .section-title::before { content: ''; display: block; width: 4px; height: 22px; background: var(--primary); border-radius: 4px; }
+    .timeline-item { display: flex; gap: 24px; margin-bottom: 24px; }
+    .timeline-item:last-child { margin-bottom: 0; }
+    .time-date { flex: 0 0 130px; color: var(--text-muted); font-size: 14px; font-weight: 600; text-align: right; padding-top: 2px; }
+    .time-content { flex: 1; color: var(--text-main); font-size: 15px; border-left: 2px solid var(--border); padding-left: 24px; position: relative; }
+    .time-content::before { content: ''; position: absolute; left: -6px; top: 6px; width: 10px; height: 10px; background: var(--primary); border-radius: 50%; box-shadow: 0 0 0 3px var(--bg-card); }
+    .time-content strong { display: block; color: #111827; font-size: 16px; margin-bottom: 4px; }
+    #bio li { list-style: none; background: #f8fafc; border-left: 4px solid var(--primary); padding: 16px 20px; border-radius: 0 8px 8px 0; margin-top: 24px; color: var(--text-main); font-size: 15px; }
+    #bio li a { font-weight: bold; color: var(--primary); text-decoration: none; }
+    p { color: var(--text-muted); font-size: 15px; line-height: 1.7; margin: 0; }
+    p.small { font-size: 14px; }
+    ul.pub { list-style: none; padding: 0; margin: 0; }
+    ul.pub li { margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px dashed var(--border); color: var(--text-muted); }
+    ul.pub li:last-child { border-bottom: none; padding-bottom: 0; margin-bottom: 0; }
+    ul.pub a { color: var(--primary); text-decoration: none; font-weight: 600; }
+    .projects strong { display: block; font-size: 18px; margin: 24px 0 12px; color: #111827; }
+    .projects img { max-width: 100%; height: auto; border-radius: 8px; margin-top: 12px; }
+    table { width: 100%; border-collapse: collapse; margin-top: 16px; }
+    td { padding: 4px; }
+    #contact a[href^="mailto:"] { color: var(--text-main); font-weight: 600; text-decoration: none; }
+    #contact a.btn { display: block; background: var(--primary); color: white; text-align: center; padding: 14px; border-radius: 8px; text-decoration: none; font-weight: 700; margin-top: 24px; transition: background 0.2s; }
+    #contact a.btn:hover { background: var(--primary-hover); }
+    footer { text-align: center; padding: 32px; color: var(--text-muted); font-size: 14px; }
+    @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } .wrap { margin-top: -60px; } }
+    @media (max-width: 600px) { .top-nav { flex-direction: column; gap: 16px; padding: 16px; justify-content: center; } .nav-links { justify-content: center; gap: 16px; } .lang-switch { position: static; } }
+    @media (max-width: 500px) { .hero { padding: 40px 16px 120px; } .hero h1 { font-size: 28px; } .card-main { padding: 24px 20px; } .card-aside section { padding: 24px 20px; } .timeline-item { flex-direction: column; gap: 8px; } .time-date { text-align: left; padding-top: 0; } .time-content { border-left: none; padding-left: 0; } .time-content::before { display: none; } }
+  </style>
+</head>
+<body>
+  <nav class="top-nav">
+    <div class="nav-links">
+      <a href="#bio">소개</a>
+      <a href="#education">학력</a>
+      <a href="#activity-log">활동 내역</a>
+      <a href="#research">연구 분야</a>
+      <a href="#publications">논문</a>
+      <a href="#projects">수상 이력</a>
+      <a href="#projects">프로젝트</a>
+    </div>
+    <div class="lang-switch">
+      <a href="index.html" class="active">KR</a>
+      <span class="lang-divider">|</span>
+      <a href="en.html">EN</a>
+      <span class="lang-divider">|</span>
+      <a href="jp.html">JP</a>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <img class="avatar" src="FileController.jpeg" alt="Minho Seo">
+    <div>
+      <h1>서민호 / Minho Seo <span class="small">(학부 연구생)</span></h1>
+      <div class="sub"></div>
+      <div class="small">이메일: <a href="mailto:alffks56102@gmail.com">alffks56102@gmail.com</a> • <a href="#contact">면담 일정 잡기</a></div>
+    </div>
+  </header>
+
+  <div class="wrap">
+    <div class="grid">
+      <main class="card-main">
+        <section id="bio">
+          <div class="section-title">소개 (Biography)</div>
+          <p>저는 한국교통대학교에서 학사 학위를 취득 중인 컴퓨터 공학과 학부연구생입니다. 컴퓨터비전 영상 처리와 정보 보안의 교차점에 중점을 둔 연구를 진행하고 있으며, 최근에는 드론 및 레이더 연구에서 시작해 이미지 디헤이징 기술 개발로 연구 영역을 진행하고 있습니다.
+            현재는 사랑으로 노인복지센터 CS & IT Infrastructure Leader로 활동하고 있습니다. 
+          </p>
+          <li>EVALAB, 2025. 임베디드, 컴퓨터 비전 & AI 연구실, 한국교통대학교 <a href="https://chipeval.github.io/homepage/">연구실 홈페이지</a></li>
+          <li>GITHUB 2026 Minho Seo (ITsuki) <a href="https://github.com/ITsukiseominho">Github 홈페이지</a></li>
+          <li>사랑으로 노인복지센터 <a href="https://www.sarangeuro.kr/">대표 홈페이지</a></li>
+          <li>사용 언어 (Using language) <a href="https://github.com/ITsukiseominho">C, C++, C#, Blue print, Sql, python, Java, JS. Php</a></li>
+        </section>
+
+        <section id="education">
+          <div class="section-title">학력 (Education)</div>
+           <section id="education">
+          <div class="timeline-item">
+            <div class="time-date">2030. 03 - 2032</div>
+            <div class="time-content">
+              <strong>Pohang University of Science and Technology (POSTECH)</strong>
+              Prospective Master's Degree in Computer Engineering
+            </div>
+          </div>
+        
+        </section>
+        <section id="education">
+          <div class="timeline-item">
+            <div class="time-date">2025. 07 - 2026</div>
+            <div class="time-content">
+              <strong>San Francisco State University (SFSU)</strong>
+              a certificate of completion for the noncredit program & college of Professional 
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="time-date">2024. 03 - 2030</div>
+            <div class="time-content">
+              <strong>Korea National University of Transportation (KNUT)</strong>
+              Bachelor's Degree in Computer Engineering / CSE
+            </div>
+          </div>
+        </section>
+         <section id="education">
+          <div class="timeline-item">
+            <div class="time-date">2021. 03 - 2023</div>
+            <div class="time-content">
+              <strong>High School Diploma, Goun High School</strong>
+              Goun High School Graduate & President of OVERFLOW Computer Club
+            </div>
+          </div>
+        </section>
+
+        <section id="activity-log">
+          <div class="section-title">활동 내역 (Activity Log)</div>
+          <div class="timeline-item">
+            <div class="time-date">2026. 03 - 2027</div>
+            <div class="time-content">
+              <strong>군 복무 (Military Service)</strong>
+              Social Service Agent | CS & IT Infrastructure Lead
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="time-date">2026. 03 - 2027</div>
+            <div class="time-content">
+              <strong>Team Leader of 2026 Capstone Design (CDP)</strong>
+              2026 CDP Cherry Blossom Team  (지도교수: 우성희)
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="time-date">2026. 03 - 2028</div>
+            <div class="time-content">
+              <strong>NTLAB 학부 연구생 팀장 (Undergraduate Research Assistant)</strong>
+              NTALAB Team Leader (지도교수: 우성희)
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="time-date">2025. 09 - 2026</div>
+            <div class="time-content">
+              <strong>CS & IT of 2025 Student Team Chellenge (SCT)</strong>
+              2025 SCT Time Attack Team (지도교수: Dat Ngo)
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="time-date">2025. 08 - 2026</div>
+            <div class="time-content">
+              <strong>잇세대 (IT:世代) - 충북형 세대연결 디지털 리터러시 멘토링 프로그램 in U.S.A San Francisco State University (SFSU)</strong>
+              2025. 07. 06 ~ 2026 동안 진행된 샌프란시스코 어학연수 및 현지 기관 인터뷰를 통해 고령층 디지털 포용의 핵심 전략을 수립했습니다. in U.S.A San Francisco State.
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="time-date">2025. 07 - 2026</div>
+            <div class="time-content">
+              <strong>San Francisco State University (SFSU)
+San Francisco Discover Program | Center for Global Engagement </strong>
+              Global Experience: San Francisco, Participated in an intensive language program and the San Francisco Discover Program at San Francisco State University.
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="time-date">2025. 06 - 2026</div>
+            <div class="time-content">
+              <strong>EVLAB 학부 연구생 팀장 (Undergraduate Research Assistant)</strong>
+              EVALAB Team Leader (지도교수: Dat Ngo)
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="time-date">2025. 03 - 2026</div>
+            <div class="time-content">
+              <strong>Team Leader of 2025 Capstone Design (CDP) </strong>
+              2025 CDP Pafrika Team (지도교수: Dat Ngo)
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="time-date">2024 - 2025</div>
+            <div class="time-content">
+              <strong>KNUT OVERFLOW 동아리 회장 (Club President)</strong>
+              President of KNUT OVERFLOW Computer Club
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="time-date">2022 - 2024</div>
+            <div class="time-content">
+              <strong>GOUN OVERFLOW 동아리 회장 (Club President)</strong>
+              President of GOUN OVERFLOW Computer Club
+            </div>
+          </div>
+        </section>
+
+        <section id="research">
+          <div class="section-title">연구 분야 (Research Interests)</div>
+          <p class="small">*Computer Vision / *Machine Learning / *Server Infrastructure (Linux, Apache, windows server) / *Full-stack (Backend & Frontend) / Digital Signal & Image Processing / Information Security / Embedded System Design / Circuit Design / Drone & UAV Design</p>
+        </section>
+
+        <section id="publications">
+          <div class="section-title">저널 논문 (Journal Papers)</div>
+          <ul class="pub">
+            <li>1. *서민호, *박정민, 김예은, 유성식, Corresponding Author : Dat Ngo  <em> <br>[KCI] DepthAware_3D_Fog_Synthesis_with_Temporal_Consistenc</em>. Journal, 2026. <a href="KCI_FI003322677 (2).pdf" target="_blank">PDF</a>. | <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003322677">DOI</a></li>
+            <li>2. *서민호, *송여민, 유성식, 강민재, Corresponding Author : 우성희 <em><br>[KCI] Deep Learning-based Real-time Titration Endpoint Prediction and Automation System</em>. Journal, 2026. <a href="#">PDF</a> | <a href="#">DOI</a></li>
+          </ul>
+        </section>
+
+        <section id="conference">
+          <div class="section-title">학술대회 논문 (Conference Papers)</div>
+          <ul class="pub">
+            <li>1. 서민호 — 대한전자공학회 2026년도 하계종합학술대회 Conference paper, 2026. <a href="#">PDF</a></li>
+             <li>2. 서민호 — 유럽 컴퓨터 언어학 협회(EACL) 2028 학술대회 Conference paper, 2028. <a href="#">PDF</a></li>
+          </ul>
+        </section>
+
+         <section id="conference">
+          <div class="section-title">수상 이력 (Achievements)</div>
+          <ul class="pub">
+            <li>1. 2025학년도 해외연수 지원사업 (in U.S.A SFSU) 장려상 수상 [서민호] - KNUT 국제교류본부, 2025 <a href="2425032 서민호 수상.pdf">PDF</a></li>
+             <li>2. 2022 고운코딩대회 금상 수상 (1등) [서민호] - 고운고등학교, 2022. <a href="#">PDF</a></li>
+             <li>3. 2022 SFPC in JEJU 장려상 수상 (5등) - SFPC JEJU, 2022. <a href="#">PDF</a></li>
+             <li>4. 2021 고운코딩대회 금상 동상 (3등) [서민호] - 고운고등학교, 2021. <a href="#">PDF</a></li>
+          </ul>
+        </section>
+
+         <section id="conference">
+          <div class="section-title">수료증 (Certificate of Completion)</div>
+          <ul class="pub">
+            <li>1. 2025 San Francisco State University (SFSU) San Francisco Discover Program - Center for Global Engagement Benjamin Huynh, 2025. <a href="suro.jpg">PDF</a></li>
+             <li>2. 국립한국교통대학교 국제 컨퍼런스 2025 [서민호] - KNUT 산학협력단, 2025. <a href="certificate (1).pdf">PDF</a></li>
+             <li>3.  2025학년도 학습포트폴리오 공모전   <a href="#">PDF</a></li>
+             <li>4. 2021 고운코딩대회 금상 동상 (3등) [서민호] - 고운고등학교, 2021. <a href="#">PDF</a></li>
+          </ul>
+        </section>
+
+        <section id="projects">
+          <div class="section-title">프로젝트 (Projects)</div>
+          <div class="projects">
+            <strong>시간적 일관성을 갖춘 깊이 인식 3D 안개 합성 (Depth-Aware 3D Fog Synthesis)</strong>
+            <table>
+              <tr>
+                <td align="center"><img src="JOU.png" alt="Comparison Result"></td>
+                <td align="center"><img src="JOU1.png" alt="Scene Image 1"></td>
+                <td align="center"><img src="JOU2.png" alt="Depth Map"></td>
+              </tr>
+              <tr>
+                <td align="center"><img src="JOU3.png" alt="Segmentation 1"></td>
+                <td align="center"><img src="JOU4.png" alt="Scene Image 2"></td>
+                <td align="center"><img src="JOU5.png" alt="Segmentation 2"></td>
+              </tr>
+              <tr>
+                <td colspan="1" align="center"><img src="JOU6.png" alt="CARLA Segmentation Channels"></td>
+              </tr>
+            </table>
+            <p class="small">기존의 방법 A는 화면 전체에 균일한 밀도의 안개를 덮는 균질 안개 모델(Homogeneous Fog Model)을 사용합니다. 이 방식은 단순히 이미지 위에 투명한 회색 레이어를 얹는 것과 같아서, 관찰자와 객체 간의 거리에 따른 물리적인 빛 산란 현상을 재현하지 못합니다.</p>
+            <img src="ok.png" alt="project"><br><br>
+            
+            <strong>블라인드 이미지 복원 (Blind Image Restoration)</strong>
+            <p class="small">향상된 시각적 인지와 센서 활용을 위한 이미지 디헤이징 기술</p>
+            <img src="2_1.bmp.jpg" alt="project">
+
+            <strong style="display:block;margin-top:12px">BMP 이미지 처리 AI (BMP Image AI)</strong>
+            <p class="small">BMP 형식의 이미지 데이터 처리 및 분석</p>
+            <img src="6_2.bmp.jpg" alt="project2">
+          </div>
+        </section>
+      </main>
+
+      <aside class="card-aside">
+        <section id="news">
+          <div class="section-title">연구실 소식 (News)</div>
+          <p class="small">저희 연구실은 **한국교통대학교 W18관 314호**에 위치하고 있습니다.<br>저희는 영상 처리 융합 분야의 연구와 교육 발전에 전념하고 있습니다. 협력 프로젝트와 혁신적인 접근을 통해 학술적 지식과 실용적인 응용 분야 모두에 기여하는 것을 목표로 합니다.</p>
+        </section>
+
+        <section id="contact">
+          <div class="section-title">연락처 (Contact)</div>
+          <p class="small">이메일: <a href="mailto:alffks56102@gmail.com">alffks56102@gmail.com</a><br>연구실 : **한국교통대학교 W18관 314호**</p>
+          <a href="#" class="btn">면담 예약하기</a>
+        </section>
+
+        <section id="toc">
+          <div class="section-title">바로가기 (Table of content)</div>
+          <p class="small">수상 이력 / 저널 논문 / 학술대회 논문 / 도구 및 데이터셋 / 교육 / 프로젝트</p>
+        </section>
+      </aside>
+    </div>
+
+    <footer>
+      © 서민호 (Minho Seo) — 최종 업데이트: <span id="updated">2026-04-16</span>
+    </footer>
+  </div>
+
+  <script>
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click',e=>{
+        const target = document.querySelector(a.getAttribute('href'));
+        if(target){e.preventDefault(); target.scrollIntoView({behavior:'smooth',block:'start'});} 
+      });
+    });
+  </script>
+</body>
+</html>
